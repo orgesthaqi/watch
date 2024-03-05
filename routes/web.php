@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\CheckRole;
-use App\Models\User;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MediaItemController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,23 +25,40 @@ Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
 
     // Route accessible only to admins
-    Route::middleware([CheckRole::class . ':' . User::ROLE_ADMIN])->group(function () {
-        Route::get('/media-items', [App\Http\Controllers\MediaItemController::class, 'index'])->name('media_items.index');
-        Route::get('/media-items/create', [App\Http\Controllers\MediaItemController::class, 'create'])->name('media_items.create');
-        Route::post('/media-items', [App\Http\Controllers\MediaItemController::class, 'store'])->name('media_items.store');
-        Route::post('/media-items-upload', [App\Http\Controllers\MediaItemController::class, 'uploadMedia'])->name('media_items.files.upload');
-        Route::delete('/media-items/{id}', [App\Http\Controllers\MediaItemController::class, 'destroy'])->name('media_items.destroy');
+    Route::middleware(['role:admin'])->group(function () {
 
-        Route::resource('users', App\Http\Controllers\UserController::class);
+        Route::get('/media-items/{id}/edit', [MediaItemController::class, 'edit'])->name('media_items.edit');
+        Route::delete('/media-items/{id}', [MediaItemController::class, 'destroy'])->name('media_items.destroy');
+
+        Route::resource('users', UserController::class);
+        Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
+        Route::delete('/users/{user}/roles/{role}', [UserController::class, 'revokeRole'])->name('users.roles.revoke');
+
+        Route::resource('roles', RoleController::class);
+        Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+        Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
+
+        // Route::resource('permissions', PermissionController::class);
+        // Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
+        // Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'revokeRole'])->name('permissions.roles.revoke');
+    });
+
+    Route::middleware(['role:admin|manager'])->group(function () {
+        Route::get('/media-items', [MediaItemController::class, 'index'])->name('media_items.index');
+        Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
+        Route::post('/media-items', [MediaItemController::class, 'store'])->name('media_items.store');
+        Route::post('/media-items-upload', [MediaItemController::class, 'uploadMedia'])->name('media_items.files.upload');
     });
 
     // Route accessible to both admins and users
-    Route::middleware([CheckRole::class . ':' . User::ROLE_ADMIN . ',' . User::ROLE_USER])->group(function () {
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        Route::get('/file/{id}/{filename}', [App\Http\Controllers\MediaItemController::class, 'show'])->name('file.show');
+    Route::middleware(['role:admin|manager|user'])->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');
 
-        Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
-        Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     });
 
 });
+
+

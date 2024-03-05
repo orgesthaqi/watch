@@ -12,11 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
-            'name'      => 'Administrator',
-            'email'     => 'admin@watch.com',
-            'password'  => bcrypt('123456789'),
-            'role'      => \App\Models\User::ROLE_ADMIN,
+        $this->call([
+            RoleSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

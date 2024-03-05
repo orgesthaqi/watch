@@ -137,10 +137,15 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu text-small">
-                                @if(Auth::user()->role == 1)
-                                    <li><a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a></li>
+                                @hasanyrole('admin|manager')
                                     <li><a class="dropdown-item" href="{{ route('media_items.index') }}">Manage Media</a></li>
-                                @endif
+                                @endhasanyrole
+
+                                @role('admin')
+                                    <li><a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a></li>
+                                    {{-- <li><a class="dropdown-item" href="{{ route('permissions.index') }}">Permissions</a></li> --}}
+                                @endrole
                                 <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
                                 <li>
                                     <hr class="dropdown-divider">

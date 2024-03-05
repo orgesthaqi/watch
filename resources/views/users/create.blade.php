@@ -22,8 +22,9 @@
                 <label class="form-label mb-3">Role</label>
                 <select class="form-select" name="role">
                     <option selected>Select Role</option>
-                    <option value="1">Administrator</option>
-                    <option value="2">User</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="mb-3">

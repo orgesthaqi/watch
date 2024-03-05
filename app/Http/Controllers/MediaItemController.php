@@ -12,7 +12,7 @@ class MediaItemController extends Controller
 {
     public function index()
     {
-        $media_items = MediaItem::paginate(25);
+        $media_items = MediaItem::orderBy('created_at', 'DESC')->paginate(25);
 
         return view('media_items.index', compact('media_items'));
     }
@@ -37,6 +37,7 @@ class MediaItemController extends Controller
         }
 
         $mediaItem = new MediaItem();
+        $mediaItem->sort = MediaItem::max('sort') + 1;
         $mediaItem->uuid = $mediaItemId;
         $mediaItem->title = $request->title;
         $mediaItem->path = $request->media_path;

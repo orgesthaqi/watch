@@ -7,24 +7,9 @@ use App\Models\MediaItem;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        $media_items = MediaItem::all();
+        $media_items = MediaItem::orderBy('created_at', 'DESC')->get();
 
         return view('home', compact('media_items'));
     }

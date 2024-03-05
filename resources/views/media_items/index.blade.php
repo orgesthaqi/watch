@@ -15,7 +15,7 @@
                 <th>Title</th>
                 <th>Image</th>
                 <th>Created At</th>
-                <th>Actions</th>
+                @role('admin')<th>Actions</th>@endrole
             </tr>
         </thead>
         <tbody>
@@ -31,13 +31,18 @@
                 </td>
                 <td>{{ $media_item->created_at }}</td>
                 <td>
-                    <form action="{{ route('media_items.destroy', $media_item->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            <i class="bi bi-trash"></i> Delete
-                        </button>
-                    </form>
+                    @role('admin')
+                        <a href="{{ route('media_items.edit', $media_item->id) }}" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <form action="{{ route('media_items.destroy', $media_item->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
+                    @endrole
                 </td>
             </tr>
             @endforeach
