@@ -22,6 +22,13 @@ class MediaItemController extends Controller
         return view('media_items.create');
     }
 
+    public function edit($id)
+    {
+        $mediaItem = MediaItem::find($id);
+
+        return view('media_items.edit', compact('mediaItem'));
+    }
+
     public function store(Request $request)
     {
         $mediaItemId = $request->media_item_id;
