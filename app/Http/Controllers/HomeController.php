@@ -9,8 +9,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $media_items = MediaItem::orderBy('created_at', 'DESC')->get();
+        $featured_media_items = MediaItem::where('featured', true)
+                    ->orderBy('created_at', 'desc')
+                    ->limit(8)
+                    ->get();
 
-        return view('home', compact('media_items'));
+        $media_items = MediaItem::orderBy('created_at', 'desc')
+                    ->get();
+
+        return view('home', compact('featured_media_items','media_items'));
     }
 }
