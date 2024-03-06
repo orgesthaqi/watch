@@ -46,6 +46,7 @@ class MediaItemController extends Controller
         $mediaItem = new MediaItem();
         $mediaItem->sort = MediaItem::max('sort') + 1;
         $mediaItem->uuid = $mediaItemId;
+        $mediaItem->featured = $request->featured;
         $mediaItem->title = $request->title;
         $mediaItem->path = $request->media_path;
         $mediaItem->image = $fileName;
@@ -106,5 +107,14 @@ class MediaItemController extends Controller
         $disk->deleteDirectory('media/' . $mediaItem->uuid);
 
         return redirect()->route('media_items.index');
+    }
+
+    public function updateFeatured(Request $request)
+    {
+        $mediaItem = MediaItem::find($request->id);
+        $mediaItem->featured = $request->featured;
+        $mediaItem->save();
+
+        return response()->json(['success' => true]);
     }
 }

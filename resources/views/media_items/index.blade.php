@@ -11,6 +11,7 @@
         <thead>
             <tr>
                 <th>#</th>
+                @role('admin')<th>Feature</th>@endrole
                 <th>UUID</th>
                 <th>Title</th>
                 <th>Image</th>
@@ -22,6 +23,11 @@
             @foreach($media_items as $media_item)
             <tr>
                 <td>{{ $media_item->id }}</td>
+                @role('admin')
+                    <td style="padding-left:2%;">
+                        <input class="form-check-input" type="checkbox" name="featured" value="{{ $media_item->id }}" {{ $media_item->featured ? 'checked' : '' }} onchange="updateFeatured({{ $media_item->id }}, this.checked)">
+                    </td>
+                @endrole
                 <td>{{ $media_item->uuid }}</td>
                 <td>{{ $media_item->title }}</td>
                 <td>
@@ -65,5 +71,20 @@
             }
         });
     });
+
+    function updateFeatured(id, featured) {
+        $.ajax({
+            url: "{{ route('media_items.featured') }}",
+            type: 'POST',
+            data: {
+                id: id,
+                featured: featured ? 1 : 0,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                console.log('Response:', response);
+            }
+        });
+    }
 </script>
 @endsection

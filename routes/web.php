@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/media-items/{id}/edit', [MediaItemController::class, 'edit'])->name('media_items.edit');
         Route::delete('/media-items/{id}', [MediaItemController::class, 'destroy'])->name('media_items.destroy');
+        Route::post('/media-items/update/featured', [MediaItemController::class, 'updateFeatured'])->name('media_items.featured');
 
         Route::resource('users', UserController::class);
         Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');

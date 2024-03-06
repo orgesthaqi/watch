@@ -14,6 +14,14 @@
                 <label for="formFile" class="form-label">Image</label>
                 <input class="form-control" type="file" name="image" id="customFile">
             </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Featured</label>
+                <select class="form-select" name="featured">
+                    <option value="">Select featured</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
             <div class="mb-3" id="upload-container">
                 <label for="formFile" class="form-label">File</label>
                 <input type="file" id="browseFile" class="form-control"/>
