@@ -19,10 +19,10 @@
 	    margin:30,
 	    animateOut: 'fadeOut',
 	    animateIn: 'fadeIn',
-	    nav:true,
-	    dots: true,
+	    nav: false,
+	    dots: false,
 	    autoplayHoverPause: false,
-	    items: 6,
+	    items: 7,
 	    navText : ["<span class='ion-ios-arrow-back'></span>","<span class='ion-ios-arrow-forward'></span>"],
 	    responsive:{
             0:{

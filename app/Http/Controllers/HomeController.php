@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         $featured_media_items = MediaItem::where('featured', 1)
                     ->orderBy('created_at', 'desc')
-                    ->limit(8)
+                    ->limit(20)
                     ->get();
 
         $media_items = MediaItem::orderBy('created_at', 'desc')
