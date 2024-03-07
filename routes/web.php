@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin|manager|user'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');
+        Route::get('/media/{id}/download', [MediaItemController::class, 'download'])->name('media.download');
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');

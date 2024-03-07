@@ -117,4 +117,24 @@ class MediaItemController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function download($id)
+    {
+            $mediaItem = MediaItem::find($id);
+
+            if ($mediaItem) {
+                $filePath = storage_path('app/private/media/'.$mediaItem->uuid.'/'. $mediaItem->path);
+
+                if (file_exists($filePath)) {
+                    return response()->download($filePath);
+                } else {
+                    // File does not exist
+                    return response()->json(['error' => 'File not found'], 404);
+                }
+            } else {
+                // Media item not found
+                return response()->json(['error' => 'Media item not found'], 404);
+            }
+    }
+
 }

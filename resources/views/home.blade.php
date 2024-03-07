@@ -37,7 +37,7 @@
             <div class="col item">
                 <div class="work work_all">
                     <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->image]) }});">
-                        <a href="#" class="icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#videoModal" onclick="setVideoUrl('{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}', '{{ $media_item->title }}')"><span class="bi bi-play" style="font-size:25px;"></span>
+                        <a href="#" class="icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#videoModal" onclick="setVideoUrl('{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}', '{{ $media_item->title }}', '{{ $media_item->id }}')"><span class="bi bi-play" style="font-size:25px;"></span>
                         </a>
                     </div>
                     <div class="text pt-3 w-100 text-center">
@@ -83,8 +83,9 @@
                 </video>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="modalCloseButton"
-                    data-bs-dismiss="modal">Close</button>
+                <a href="#" class="btn btn-outline-primary downloadMedia"><i class="bi bi-cloud-download"></i> Download</a>
+                <button type="button" class="btn btn-outline-danger" id="modalCloseButton"
+                    data-bs-dismiss="modal"><i class="bi bi-x"></i> Close</button>
             </div>
         </div>
     </div>
@@ -95,15 +96,18 @@
 @section('scripts')
 <script>
     const videoModal = document.getElementById('videoModal')
-    videoModal.addEventListener('hidden.bs.modal', event => {
+        videoModal.addEventListener('hidden.bs.modal', event => {
         var videoElement = document.getElementById('videoFrame');
         videoElement.currentTime = 0;
     })
 
-
-    function setVideoUrl(url, title) {
+    function setVideoUrl(url, title, id) {
         document.getElementById('videoModalTitle').innerHTML = title;
         document.getElementById('videoFrame').src = url;
+
+        var url = "{{ route('media.download', ":id") }}";
+        url = url.replace(':id', id);
+        document.querySelector('.downloadMedia').href = url;
 
         const controls = [
             'play-large', // The large play button in the center
@@ -125,6 +129,5 @@
             controls
         });
     }
-
 </script>
 @endsection
