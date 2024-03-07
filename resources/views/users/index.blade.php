@@ -14,6 +14,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Status</th>
+                <th>Last Login</th>
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
@@ -31,6 +32,7 @@
                         <span class="badge text-bg-danger">Inactive</span>
                     @endif
                 </td>
+                <td>{{ $user->last_login_at }}</td>
                 <td>{{ $user->created_at }}</td>
                 <td>
                     <div class="d-flex">

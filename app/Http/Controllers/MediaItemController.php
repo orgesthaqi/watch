@@ -46,13 +46,13 @@ class MediaItemController extends Controller
         $mediaItem = new MediaItem();
         $mediaItem->sort = MediaItem::max('sort') + 1;
         $mediaItem->uuid = $mediaItemId;
-        $mediaItem->featured = $request->featured;
+        $mediaItem->featured = $request->featured ?? 0;
         $mediaItem->title = $request->title;
         $mediaItem->path = $request->media_path;
         $mediaItem->image = $fileName;
         $mediaItem->save();
 
-        return redirect()->route('home');
+        return redirect()->route('media_items.index');
     }
 
     public function uploadMedia(Request $request) {
