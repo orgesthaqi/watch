@@ -31,6 +31,12 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'role' => 'required'
+        ]);
+
         $user = User::create($request->all());
         $user->assignRole($request->role);
 
@@ -44,8 +50,24 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
-        return response()->json($user, 200);
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            'role' => 'required'
+        ]);
+
+        if($request->password){
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->status = $request->status;
+        $user->save();
+
+        $user->syncRoles([$request->role]);
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
     public function destroy(User $user)

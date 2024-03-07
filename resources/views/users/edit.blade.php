@@ -6,17 +6,27 @@
 
     <form action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data" method="POST" style="margin-top:20px;">
         @csrf
+        @method('PUT')
         <div class="mb-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $user->name }}">
+            <input type="text" class="form-control" name="name" placeholder="Name" value="{{ $user->name }}" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="text" class="form-control" name="email" placeholder="Email" value="{{ $user->email }}">
+            <input type="text" class="form-control" name="email" placeholder="Email" value="{{ $user->email }}" required>
         </div>
         <div class="mb-3">
             <label class="form-label">Password</label>
             <input type="text" class="form-control" name="password" placeholder="********">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select class="form-select" name="role" required>
+                <option selected>Select Role</option>
+                @foreach($roles as $role)
+                    <option value="{{ $role->name }}" @if($user->hasRole($role->name)) selected @endif>{{ $role->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="mb-3">
             <label class="form-label mb-3">Status</label>
