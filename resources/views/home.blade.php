@@ -11,7 +11,7 @@
                         <div class="item">
                             <div class="work">
                                 <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->image]) }});">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#videoModal" onclick="setVideoUrl('{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}', '{{ $media_item->title }}')"><span class="bi bi-play" style="font-size:25px;"></span>
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#videoModal" onclick="setVideoUrl('{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}', '{{ $media_item->title }}', {{ $media_item->id }})"><span class="bi bi-play" style="font-size:25px;"></span>
                                     </a>
                                 </div>
                                 <div class="text pt-3 w-100 text-center">
