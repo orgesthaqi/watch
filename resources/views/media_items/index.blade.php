@@ -25,7 +25,6 @@
                 <td>{{ $media_item->id }}</td>
                 @role('admin')
                     <td>
-                        {{-- <input class="form-check-input" type="checkbox" name="featured" value="{{ $media_item->id }}" {{ $media_item->featured ? 'checked' : '' }} onchange="updateFeatured({{ $media_item->id }}, this.checked)"> --}}
                         <label class="checkbox_container">
                             <input type="checkbox" value="{{ $media_item->id }}" {{ $media_item->featured ? 'checked' : '' }} onchange="updateFeatured({{ $media_item->id }}, this.checked)">
                             <span class="checkmark"></span>

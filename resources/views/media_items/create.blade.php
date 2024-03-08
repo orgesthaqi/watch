@@ -48,17 +48,12 @@
 
     let resumable = new Resumable({
         target: '{{ route('media_items.files.upload') }}',
-        query: {
-            _token: '{{ csrf_token() }}',
-
-        },
-        maxFilesize: 3072, // 3GB
-        chunkSize: 10000000, // 10MB
-        headers: {
-            'Accept': 'application/json'
-        },
+        chunkSize: 10 * 1024 * 1024,
         testChunks: false,
+        simultaneousUploads: 3,
         throttleProgressCallbacks: 1,
+        forceChunkSize: true,
+        query: { _token: '{{ csrf_token() }}'},
     });
 
     resumable.assignBrowse(browseFile[0]);
