@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
 </head>
@@ -60,6 +61,7 @@
                 <ul class="dropdown-menu text-small">
                     @hasanyrole('admin|manager')
                     <li><a class="dropdown-item" href="{{ route('media_items.index') }}">Manage Media</a></li>
+                    <li><a class="dropdown-item" href="{{ route('categories.index') }}">Manage Categories</a></li>
                     @endhasanyrole
 
                     @role('admin')
@@ -94,6 +96,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/resumablejs@1.1.0/resumable.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     @yield('scripts')

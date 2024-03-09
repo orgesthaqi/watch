@@ -12,6 +12,7 @@
             <tr>
                 <th>#</th>
                 @role('admin')<th>Feature</th>@endrole
+                <th>Sort</th>
                 <th>UUID</th>
                 <th>Title</th>
                 <th>Image</th>
@@ -29,9 +30,9 @@
                             <input type="checkbox" value="{{ $media_item->id }}" {{ $media_item->featured ? 'checked' : '' }} onchange="updateFeatured({{ $media_item->id }}, this.checked)">
                             <span class="checkmark"></span>
                         </label>
-
                     </td>
                 @endrole
+                <td contentEditable="true" class="media_item_sort" data-id="{{ $media_item->id }}" data-current_sort_id={{ $media_item->sort }}>{{ $media_item->sort }}</td>
                 <td>{{ $media_item->uuid }}</td>
                 <td>{{ $media_item->title }}</td>
                 <td>
@@ -90,5 +91,34 @@
             }
         });
     }
+
+    $('.media_item_sort').on('blur', function(e){
+        var id = $(this).data('id');
+        var sort_id = $(this).html();
+        var current_sort_id = $(this).data('current_sort_id');
+
+        if (parseInt(sort_id) === parseInt(current_sort_id)) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "{{ route('media_items.sort') }}",
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: id,
+                sort_id: sort_id,
+            },
+            success: function (data) {
+                if (data.status == '200') {
+                    $('.media_item_sort').data('current_sort_id', sort_id);
+                    toastr.success('Item successfully updated!', 'Success');
+                }
+            },
+            error: function(data) {
+                toastr.error('Error updating item!', 'Error');
+            }
+        });
+    });
 </script>
 @endsection

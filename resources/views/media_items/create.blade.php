@@ -22,6 +22,22 @@
                     <option value="0">No</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Categories</label>
+                <div class="row">
+                    @foreach($categories as $category)
+                    <div class="col-auto mb-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" id="category{{ $category->id }}">
+                            <label class="form-check-label" for="category{{ $category->id }}">
+                                {{ $category->name }}
+                            </label>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="mb-3" id="upload-container">
                 <label for="formFile" class="form-label">File</label>
                 <input type="file" id="browseFile" class="form-control"/>
@@ -44,6 +60,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+
     let browseFile = $('#browseFile');
 
     let resumable = new Resumable({

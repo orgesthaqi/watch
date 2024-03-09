@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
@@ -49,11 +50,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
         Route::post('/media-items', [MediaItemController::class, 'store'])->name('media_items.store');
         Route::post('/media-items-upload', [MediaItemController::class, 'uploadMedia'])->name('media_items.files.upload');
+        Route::post('/media-items/sort', [MediaItemController::class, 'sort'])->name('media_items.sort');
+        Route::resource('categories', CategoryController::class);
     });
 
     // Route accessible to both admins and users
     Route::middleware(['role:admin|manager|user'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/{slug}', [HomeController::class, 'category'])->name('category');
         Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');
         Route::get('/media/{id}/download', [MediaItemController::class, 'download'])->name('media.download');
 

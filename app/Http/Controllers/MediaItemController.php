@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MediaItem;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
@@ -19,7 +20,9 @@ class MediaItemController extends Controller
 
     public function create()
     {
-        return view('media_items.create');
+        $categories = Category::all();
+
+        return view('media_items.create' , compact('categories'));
     }
 
     public function edit($id)
@@ -51,6 +54,8 @@ class MediaItemController extends Controller
         $mediaItem->path = $request->media_path;
         $mediaItem->image = $fileName;
         $mediaItem->save();
+
+        $mediaItem->categories()->attach($request->categories);
 
         return redirect()->route('media_items.index');
     }
@@ -135,6 +140,15 @@ class MediaItemController extends Controller
                 // Media item not found
                 return response()->json(['error' => 'Media item not found'], 404);
             }
+    }
+
+    public function sort(Request $request)
+    {
+        $mediaItem = MediaItem::find($request->id);
+        $mediaItem->sort = $request->sort_id;
+        $mediaItem->save();
+
+        return response()->json(['status' => 200]);
     }
 
 }
