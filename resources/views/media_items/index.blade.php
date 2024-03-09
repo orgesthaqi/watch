@@ -111,7 +111,7 @@
             },
             success: function (data) {
                 if (data.status == '200') {
-                    $('.media_item_sort').data('current_sort_id', sort_id);
+                    $('.media_item_sort[data-id="' + id + '"]').data('current_sort_id', sort_id);
                     toastr.success('Item successfully updated!', 'Success');
                 }
             },
