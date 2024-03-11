@@ -11,7 +11,7 @@
                         <div class="item">
                             <div class="work">
                                 <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->image]) }});">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#videoModal" onclick="setVideoUrl('{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}', '{{ $media_item->title }}', {{ $media_item->id }})"><span class="bi bi-play" style="font-size:25px;"></span>
+                                    <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}" data-title="{{ $media_item->title }}" data-id="{{ $media_item->id }}" data-progress="{{ $media_item->userMediaProgress->progress ?? 0 }}"><span class="bi bi-play" style="font-size:25px;"></span>
                                     </a>
                                 </div>
                                 <div class="text pt-3 w-100 text-center">
@@ -41,7 +41,7 @@
             <div class="col item">
                 <div class="work work_all">
                     <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->image]) }});">
-                        <a href="#" class="icon d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#videoModal" onclick="setVideoUrl('{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}', '{{ $media_item->title }}', '{{ $media_item->id }}')"><span class="bi bi-play" style="font-size:25px;"></span>
+                        <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}" data-title="{{ $media_item->title }}" data-id="{{ $media_item->id }}" data-progress="{{ $media_item->userMediaProgress->progress ?? 0 }}"><span class="bi bi-play" style="font-size:25px;"></span>
                         </a>
                     </div>
                     <div class="text pt-3 w-100 text-center">
@@ -85,7 +85,7 @@
             </div>
             <div class="modal-body text-center">
                 <!-- Added text-center class -->
-                <video id="videoFrame" width="100%" controls>
+                <video id="videoFrame" width="100%" controls data-video_id="">
                     <!-- Changed width to 100% for a bigger video -->
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                 </video>
@@ -104,14 +104,49 @@
 @section('scripts')
 <script>
     const videoModal = document.getElementById('videoModal')
-        videoModal.addEventListener('hidden.bs.modal', event => {
+
+    videoModal.addEventListener('hidden.bs.modal', event => {
         var videoElement = document.getElementById('videoFrame');
-        videoElement.currentTime = 0;
+        var videoId = videoElement.getAttribute('data-video_id');
+        var videoProgress = Math.floor(videoElement.currentTime);
+
+
+        var videoItem = document.querySelector('.play_video[data-id="' + videoId + '"]');
+        videoItem.setAttribute('data-progress', (videoProgress - 1));
+
+        videoElement.pause();
+
+        if (videoProgress > 5) {
+            $.ajax({
+                url: "{{ route('media.progress') }}",
+                method: 'POST',
+                data: {
+                    media_id: videoId,
+                    progress: (videoProgress - 1),
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    console.log('Progress saved successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error saving progress:', error);
+                }
+            });
+        }
     })
 
-    function setVideoUrl(url, title, id) {
+    $(document).on('click','.play_video',function(){
+        var url = $(this).data('url');
+        var title = $(this).data('title');
+        var id = $(this).data('id');
+
         document.getElementById('videoModalTitle').innerHTML = title;
         document.getElementById('videoFrame').src = url;
+        document.getElementById('videoFrame').setAttribute('data-video_id', id);
+
+        var videoItem = document.querySelector('.play_video[data-id="' + id + '"]');
+        var videoProgress = videoItem.getAttribute('data-progress');
+        document.getElementById('videoFrame').currentTime = videoProgress;
 
         var url = "{{ route('media.download', ":id") }}";
         url = url.replace(':id', id);
@@ -136,6 +171,6 @@
         const player = Plyr.setup('#videoFrame', {
             controls
         });
-    }
+    });
 </script>
 @endsection

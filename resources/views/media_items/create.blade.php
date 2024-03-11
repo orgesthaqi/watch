@@ -9,7 +9,7 @@
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
                 <input type="text" class="form-control" name="title" placeholder="Title">
-            </div>
+            </input>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Image</label>
                 <input class="form-control" type="file" name="image" id="customFile">
@@ -22,6 +22,23 @@
                     <option value="0">No</option>
                 </select>
             </div>
+            {{-- <div class="mb-3">
+                <label for="formFile" class="form-label">Type</label>
+                <div class="col-auto mb-2">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" value="movie" id="movieCheckbox" checked>
+                        <label class="form-check-label" for="movieCheckbox">
+                            Movie
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="type" value="serie" id="serieCheckbox">
+                        <label class="form-check-label" for="serieCheckbox">
+                            Series
+                        </label>
+                    </div>
+                </div>
+            </div> --}}
             <div class="mb-3">
                 <label for="formFile" class="form-label">Categories</label>
                 <div class="row">

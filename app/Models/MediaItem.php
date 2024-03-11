@@ -15,4 +15,9 @@ class MediaItem extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function userMediaProgress()
+    {
+        return $this->hasOne(UserMediaProgress::class, 'media_id', 'id')->where('user_id', auth()->id());
+    }
 }

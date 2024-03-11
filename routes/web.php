@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MediaItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\MediaProgressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+        // Media progress
+        Route::post('/media-progress', [MediaProgressController::class, 'save'])->name('media.progress');
     });
 
 });
