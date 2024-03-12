@@ -22,6 +22,19 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                @php
+                                    $progress = $media_item->userMediaProgress->progress ?? 0;
+                                    $duration = $media_item->duration;
+
+                                    if ($progress > 0) {
+                                        $progress = ($progress / $duration) * 100;
+                                    }
+                                @endphp
+
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+
                             </div>
                         </div>
                     @endforeach
@@ -50,6 +63,18 @@
                             @foreach ($media_item->categories as $category)
                                 <a href="{{ url('/' . strtolower($category->name)) }}" style="text-decoration:none; font-weight:500; font-size:15px; color: #B3B2B3;" class="d-inline">{{ $category->name }}</a>
                             @endforeach
+                        </div>
+                        @php
+                            $progress = $media_item->userMediaProgress->progress ?? 0;
+                            $duration = $media_item->duration;
+
+                            if ($progress > 0) {
+                                $progress = ($progress / $duration) * 100;
+                            }
+                        @endphp
+
+                        <div class="progress" style="height: 5px;">
+                            <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
@@ -108,11 +133,10 @@
     videoModal.addEventListener('hidden.bs.modal', event => {
         var videoElement = document.getElementById('videoFrame');
         var videoId = videoElement.getAttribute('data-video_id');
-        var videoProgress = Math.floor(videoElement.currentTime);
-
+        var videoProgress = videoElement.currentTime;
 
         var videoItem = document.querySelector('.play_video[data-id="' + videoId + '"]');
-        videoItem.setAttribute('data-progress', (videoProgress - 1));
+        videoItem.setAttribute('data-progress', videoProgress);
 
         videoElement.pause();
 
@@ -122,7 +146,7 @@
                 method: 'POST',
                 data: {
                     media_id: videoId,
-                    progress: (videoProgress - 1),
+                    progress: videoProgress,
                     _token: "{{ csrf_token() }}"
                 },
                 success: function(response) {

@@ -53,6 +53,7 @@ class MediaItemController extends Controller
         $mediaItem->title = $request->title;
         $mediaItem->path = $request->media_path;
         $mediaItem->image = $fileName;
+        $mediaItem->duration = $request->media_item_duration;
         $mediaItem->save();
 
         $mediaItem->categories()->attach($request->categories);
@@ -78,12 +79,17 @@ class MediaItemController extends Controller
             $disk = Storage::disk(config('filesystems.default'));
             $path = $disk->putFileAs('media/' . $mediaItemId, $file, $fileName);
 
+            $getID3 = new \getID3;
+            $file_duration = $getID3->analyze($file);
+            $duration = $file_duration['playtime_seconds'];
+
             // delete chunked file
             unlink($file->getPathname());
             return [
                 'path' => asset('storage/' . $path),
                 'filename' => $fileName,
-                'mediaItemId' => $mediaItemId
+                'mediaItemId' => $mediaItemId,
+                'duration' => $duration,
             ];
         }
 

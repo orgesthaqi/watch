@@ -60,7 +60,7 @@
                 <input type="file" id="browseFile" class="form-control"/>
             </div>
 
-            <div class="progress mt-3" style="height: 25px; margin-bottom: 30px;">
+            <div class="progress mt-3 progress-media" style="height: 25px; margin-bottom: 30px;">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                     aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"
                     style="width: 75%; height: 100%">75%</div>
@@ -68,6 +68,7 @@
 
             <input type="hidden" name="media_path" id="media_path">
             <input type="hidden" name="media_item_id" id="media_item_id">
+            <input type="hidden" name="media_item_duration" id="media_item_duration">
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary" type="button" style="display: none;">Save</button>
             </div>
@@ -107,6 +108,7 @@
         $('button[type="submit"]').show();
         $('#media_path').val(response.filename);
         $('#media_item_id').val(response.mediaItemId);
+        $('#media_item_duration').val(response.duration);
         $('.card-footer').show();
     });
 
