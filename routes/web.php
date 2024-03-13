@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin|manager|user'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::get('/{slug}', [HomeController::class, 'category'])->name('category');
+        Route::get('/media/continue-watching', [HomeController::class, 'continueWatching'])->name('continue-watching');
         Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');
         Route::get('/media/{id}/download', [MediaItemController::class, 'download'])->name('media.download');
 

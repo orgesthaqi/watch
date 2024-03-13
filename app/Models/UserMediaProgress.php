@@ -10,4 +10,9 @@ class UserMediaProgress extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function mediaItem()
+    {
+        return $this->belongsTo(MediaItem::class, 'media_id');
+    }
 }

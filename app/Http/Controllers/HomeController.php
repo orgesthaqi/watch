@@ -41,4 +41,14 @@ class HomeController extends Controller
 
         return view('home', compact('featured_media_items','media_items'));
     }
+
+    public function continueWatching(Request $request)
+    {
+        $media_progress = $request->user()->mediaProgress()
+                    ->where('progress', '>', 0)
+                    ->orderBy('updated_at', 'desc')
+                    ->get();
+
+        return view('continue-watching', compact('media_progress'));
+    }
 }
