@@ -60,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::get('/{slug}', [HomeController::class, 'category'])->name('category');
         Route::get('/media/continue-watching', [HomeController::class, 'continueWatching'])->name('continue-watching');
+        Route::post('/media/update-views', [MediaItemController::class, 'updateViews'])->name('media.update-views');
         Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');
         Route::get('/media/{id}/download', [MediaItemController::class, 'download'])->name('media.download');
 

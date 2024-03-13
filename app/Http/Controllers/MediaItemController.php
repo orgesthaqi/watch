@@ -157,4 +157,12 @@ class MediaItemController extends Controller
         return response()->json(['status' => 200]);
     }
 
+    public function updateViews(Request $request)
+    {
+        $mediaItem = MediaItem::findOrFail($request->id);
+        $mediaItem->increment('views');
+
+        return response()->json(['message' => 'Views incremented successfully']);
+    }
+
 }

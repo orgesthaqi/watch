@@ -22,7 +22,7 @@
                 <div class="col item">
                     <div class="work work_all">
                         <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_progress->mediaItem->uuid, 'filename' => $media_progress->mediaItem->image]) }});">
-                            <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_progress->mediaItem->uuid, 'filename' => $media_progress->mediaItem->path]) }}" data-title="{{ $media_progress->mediaItem->title }}" data-id="{{ $media_progress->mediaItem->id }}" data-progress="{{ $media_progress->mediaItem->userMediaProgress->progress ?? 0 }}"><span class="bi bi-play" style="font-size:25px;"></span>
+                            <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_progress->mediaItem->uuid, 'filename' => $media_progress->mediaItem->path]) }}" data-title="{{ $media_progress->mediaItem->title }}" data-id="{{ $media_progress->mediaItem->id }}" data-progress="{{ $media_progress->mediaItem->userMediaProgress->progress ?? 0 }}" data-views="{{ $media_progress->mediaItem->views }}"><span class="bi bi-play" style="font-size:25px;"></span>
                             </a>
                         </div>
                         <div class="text pt-3 w-100 text-center">
@@ -61,6 +61,10 @@
                 </video>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary">
+                    <i class="bi bi-eye"></i> <span id="views"></span>
+                </button>
+                
                 <a href="#" class="btn btn-outline-primary downloadMedia"><i class="bi bi-cloud-download"></i> Download</a>
                 <button type="button" class="btn btn-outline-danger" id="modalCloseButton"
                     data-bs-dismiss="modal"><i class="bi bi-x"></i> Close</button>
@@ -108,10 +112,12 @@
         var url = $(this).data('url');
         var title = $(this).data('title');
         var id = $(this).data('id');
+        var views = $(this).data('views');
 
         document.getElementById('videoModalTitle').innerHTML = title;
         document.getElementById('videoFrame').src = url;
         document.getElementById('videoFrame').setAttribute('data-video_id', id);
+        document.getElementById('views').innerHTML = views + ' views';
 
         var videoItem = document.querySelector('.play_video[data-id="' + id + '"]');
         var videoProgress = videoItem.getAttribute('data-progress');
@@ -139,6 +145,18 @@
 
         const player = Plyr.setup('#videoFrame', {
             controls
+        });
+
+        $.ajax({
+            url: "{{ route('media.update-views') }}",
+            type: 'POST',
+            data: {
+                _token: "{{ csrf_token() }}",
+                id: id
+            },
+            success: function(response) {
+                console.log(response.message);
+            }
         });
     });
 </script>
