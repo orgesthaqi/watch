@@ -119,10 +119,6 @@
         }
 
     </style>
-
-
-    <!-- Custom styles for this template -->
-    <link href="sign-in.css" rel="stylesheet">
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">

@@ -23,6 +23,10 @@ class HomeController extends Controller
 
     public function category(Request $request, $slug)
     {
+        if($slug && !Category::where('name', $slug)->exists()) {
+            return redirect()->route('home');
+        }
+
         $featured_media_items = MediaItem::where('featured', 1)
                     ->whereHas('categories', function($query) use ($slug) {
                         $query->where('name', $slug);

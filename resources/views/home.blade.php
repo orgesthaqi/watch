@@ -31,7 +31,7 @@
                                     }
                                 @endphp
 
-                                <div class="progress" style="height: 5px;">
+                                <div class="progress" style="height: 5px; margin-top: 10px;">
                                     <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
 
@@ -73,7 +73,7 @@
                             }
                         @endphp
 
-                        <div class="progress" style="height: 5px;">
+                        <div class="progress" style="height: 5px; margin-top: 10px;">
                             <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
