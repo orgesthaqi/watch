@@ -4,7 +4,8 @@
 <div class="container p-4">
     <h5 class="mb-4" style="display: flex; justify-content: space-between; align-items: center;">
         <span style="margin-right: auto;">Manage Media Items</span>
-        <a href="{{ route('media_items.create') }}" class="btn btn-sm btn-primary">+ Create</a>
+        <a href="{{ route('media_items.create') }}" class="btn btn-sm btn-primary me-3">+ Create Movie</a>
+        <a href="{{ route('series.create') }}" class="btn btn-sm btn-primary">+ Create Serie</a>
     </h5>
 
     <table class="table">

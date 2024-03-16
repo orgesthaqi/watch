@@ -11,11 +11,13 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $featured_media_items = MediaItem::where('featured', 1)
+                    ->where('type', 1)
                     ->orderBy('created_at', 'desc')
                     ->limit(20)
                     ->get();
 
         $media_items = MediaItem::orderBy('created_at', 'desc')
+                    ->where('type', 1)
                     ->get();
 
         return view('home', compact('featured_media_items','media_items'));
@@ -31,13 +33,16 @@ class HomeController extends Controller
                     ->whereHas('categories', function($query) use ($slug) {
                         $query->where('name', $slug);
                     })
+                    ->where('type', 1)
                     ->orderBy('created_at', 'desc')
                     ->limit(20)
                     ->get();
 
         $media_items = MediaItem::whereHas('categories', function($query) use ($slug) {
             $query->where('name', $slug);
-        })->get();
+        })
+        ->where('type', 1)
+        ->get();
 
         return view('home', compact('featured_media_items','media_items'));
     }

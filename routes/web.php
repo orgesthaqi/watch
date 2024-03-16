@@ -9,6 +9,7 @@ use App\Http\Controllers\MediaItemController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\MediaProgressController;
+use App\Http\Controllers\SeriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,11 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin|manager'])->group(function () {
         Route::get('/media-items', [MediaItemController::class, 'index'])->name('media_items.index');
         Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
+
+        // create serie
+        Route::get('/series/create', [SeriesController::class, 'create'])->name('series.create');
+        Route::post('/series', [SeriesController::class, 'store'])->name('series.store');
+
         Route::post('/media-items', [MediaItemController::class, 'store'])->name('media_items.store');
         Route::post('/media-items-upload', [MediaItemController::class, 'uploadMedia'])->name('media_items.files.upload');
         Route::post('/media-items/sort', [MediaItemController::class, 'sort'])->name('media_items.sort');

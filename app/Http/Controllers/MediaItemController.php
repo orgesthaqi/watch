@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MediaItem;
 use App\Models\Category;
+use App\Models\Series;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
@@ -21,8 +22,9 @@ class MediaItemController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $series = Series::all();
 
-        return view('media_items.create' , compact('categories'));
+        return view('media_items.create' , compact('categories', 'series'));
     }
 
     public function edit($id)
@@ -53,6 +55,10 @@ class MediaItemController extends Controller
         $mediaItem->title = $request->title;
         $mediaItem->path = $request->media_path;
         $mediaItem->image = $fileName;
+        $mediaItem->type = $request->type;
+        $mediaItem->episode_number = $request->episode_number;
+        $mediaItem->season_number = $request->season_number;
+        $mediaItem->serie_id = $request->serie_id;
         $mediaItem->duration = $request->media_item_duration;
         $mediaItem->save();
 

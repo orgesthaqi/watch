@@ -22,23 +22,40 @@
                     <option value="0">No</option>
                 </select>
             </div>
-            {{-- <div class="mb-3">
+            <div class="mb-3">
                 <label for="formFile" class="form-label">Type</label>
                 <div class="col-auto mb-2">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" value="movie" id="movieCheckbox" checked>
+                        <input class="form-check-input" type="radio" name="type" value="1" id="movieCheckbox" checked>
                         <label class="form-check-label" for="movieCheckbox">
                             Movie
                         </label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="type" value="serie" id="serieCheckbox">
+                        <input class="form-check-input" type="radio" name="type" value="2" id="serieCheckbox">
                         <label class="form-check-label" for="serieCheckbox">
-                            Series
+                            Serie
                         </label>
                     </div>
                 </div>
-            </div> --}}
+            </div>
+            <div class="mb-3" id="serieContainer" style="display: none;">
+                <label for="formFile" class="form-label">Serie</label>
+                <select class="form-select" name="serie_id">
+                    <option value="">Select serie</option>
+                    @foreach($series as $serie)
+                        <option value="{{ $serie->id }}">{{ $serie->title }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3" id="episodeContainer" style="display: none;">
+                <label for="formFile" class="form-label">Episode Number</label>
+                <input type="number" class="form-control" name="episode_number" placeholder="Episode Number">
+            </div>
+            <div class="mb-3" id="seasonContainer" style="display: none;">
+                <label for="formFile" class="form-label">Season Number</label>
+                <input type="number" class="form-control" name="season_number" placeholder="Season Number">
+            </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Categories</label>
                 <div class="row">
@@ -135,5 +152,19 @@
         progress.hide();
     }
 
+    $('input[name="type"]').change(function () {
+        if ($(this).val() == 2) {
+            $('#serieContainer').show();
+            $('#episodeContainer').show();
+            $('#seasonContainer').show();
+        } else {
+            $('#serieContainer').hide();
+            $('#episodeContainer').hide();
+            $('#seasonContainer').hide();
+            $('select[name="serie_id"]').val('');
+            $('input[name="episode_number"]').val('');
+            $('input[name="season_number"]').val('');
+        }
+    });
 </script>
 @endsection
