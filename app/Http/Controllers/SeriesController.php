@@ -24,7 +24,13 @@ class SeriesController extends Controller
 
     public function store(Request $request)
     {
-        return Series::create($request->all());
+        $series = Series::create($request->all());
+
+        if($request->from_media_item_form) {
+            return redirect()->route('media_items.create');
+        }
+
+        return redirect()->route('series.index');
     }
 
     public function show(Series $series)

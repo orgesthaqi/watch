@@ -41,20 +41,33 @@
             </div>
             <div class="mb-3" id="serieContainer" style="display: none;">
                 <label for="formFile" class="form-label">Serie</label>
-                <select class="form-select" name="serie_id">
-                    <option value="">Select serie</option>
-                    @foreach($series as $serie)
-                        <option value="{{ $serie->id }}">{{ $serie->title }}</option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <select class="selectpicker series col-11" name="serie_id" data-live-search="true">
+                        <option value="">Select serie</option>
+                        @foreach($series as $serie)
+                            <option value="{{ $serie->id }}">{{ $serie->title }}</option>
+                        @endforeach
+                    </select>
+                    <button class="btn btn-primary col-1" type="button" id="addSerieButton" data-bs-toggle="modal" data-bs-target="#myModal">+</button>
+                </div>
             </div>
             <div class="mb-3" id="episodeContainer" style="display: none;">
                 <label for="formFile" class="form-label">Episode Number</label>
-                <input type="number" class="form-control" name="episode_number" placeholder="Episode Number">
+                <select class="form-select" name="episode_number">
+                    <option value="">Select episode number</option>
+                    @for($i = 1; $i <= 15; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
             <div class="mb-3" id="seasonContainer" style="display: none;">
                 <label for="formFile" class="form-label">Season Number</label>
-                <input type="number" class="form-control" name="season_number" placeholder="Season Number">
+                <select class="form-select" name="season_number">
+                    <option value="">Select season number</option>
+                    @for($i = 1; $i <= 10; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
             </div>
             <div class="mb-3" id="categoriesContainer">
                 <label for="formFile" class="form-label">Categories</label>
@@ -91,10 +104,46 @@
             </div>
         </form>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Serie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="tvShowForm" action="{{ route('series.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="seasons">Seasons:</label>
+                        <input type="number" class="form-control" id="seasons" name="seasons" min="1" required>
+                    </div>
+                    <input type="hidden" name="from_media_item_form" value="1">
+                    <div class="mb-3"></div>
+                    <button type="submit" class="btn btn-primary btn-block col-12">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
+    // Bootstrap select picker
+    $.fn.selectpicker.Constructor.DEFAULTS.styleBase = 'form-control';
+    $.fn.selectpicker.Constructor.DEFAULTS.style = '';
+    $('.series').selectpicker();
+    // End Bootstrap select picker
 
     let browseFile = $('#browseFile');
 
@@ -164,8 +213,9 @@
             $('#seasonContainer').hide();
             $('#categoriesContainer').show();
             $('select[name="serie_id"]').val('');
-            $('input[name="episode_number"]').val('');
-            $('input[name="season_number"]').val('');
+            $('select[name="serie_id"]').selectpicker("refresh");
+            $('select[name="episode_number"]').val('');
+            $('select[name="season_number"]').val('');
             $('input[name="categories[]"]').prop('checked', false);
         }
     });
