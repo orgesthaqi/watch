@@ -56,7 +56,7 @@
                 <label for="formFile" class="form-label">Season Number</label>
                 <input type="number" class="form-control" name="season_number" placeholder="Season Number">
             </div>
-            <div class="mb-3">
+            <div class="mb-3" id="categoriesContainer">
                 <label for="formFile" class="form-label">Categories</label>
                 <div class="row">
                     @foreach($categories as $category)
@@ -157,13 +157,16 @@
             $('#serieContainer').show();
             $('#episodeContainer').show();
             $('#seasonContainer').show();
+            $('#categoriesContainer').hide();
         } else {
             $('#serieContainer').hide();
             $('#episodeContainer').hide();
             $('#seasonContainer').hide();
+            $('#categoriesContainer').show();
             $('select[name="serie_id"]').val('');
             $('input[name="episode_number"]').val('');
             $('input[name="season_number"]').val('');
+            $('input[name="categories[]"]').prop('checked', false);
         }
     });
 </script>
