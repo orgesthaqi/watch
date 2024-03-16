@@ -2,58 +2,29 @@
 
 @section('content')
 
-<section class="ftco-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="featured-carousel owl-carousel">
-                    @foreach ($featured_media_items as $media_item)
-                        <div class="item">
-                            <div class="work">
-                                <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->image]) }});">
-                                    <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}" data-title="{{ $media_item->title }}" data-id="{{ $media_item->id }}" data-progress="{{ $media_item->userMediaProgress->progress ?? 0 }}" data-views="{{ $media_item->views }}"><span class="bi bi-play" style="font-size:25px;"></span>
-                                    </a>
-                                </div>
-                                <div class="text pt-3 w-100 text-center">
-                                    <h3><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">{{ $media_item->title }}</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <div class="album py-4">
     <div class="container">
         <div class="section-title pb-4">
-            <h4>FILMAT E FUNDIT</h4>
         </div>
         <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3">
-            @foreach ($media_items as $media_item)
+            @foreach ($series as $media_progress)
+            @php
+                $progress = $media_progress->userMediaProgress->progress ?? 0;
+                $duration = $media_progress->duration;
+
+                if ($progress > 0) {
+                    $progress = ($progress / $duration) * 100;
+                }
+            @endphp
+
             <div class="col item">
                 <div class="work work_all">
-                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->image]) }});">
-                        <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_item->uuid, 'filename' => $media_item->path]) }}" data-title="{{ $media_item->title }}" data-id="{{ $media_item->id }}" data-progress="{{ $media_item->userMediaProgress->progress ?? 0 }}" data-views="{{ $media_item->views }}"><span class="bi bi-play" style="font-size:25px;"></span>
+                    <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_progress->uuid, 'filename' => $media_progress->image]) }});">
+                        <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_progress->uuid, 'filename' => $media_progress->path]) }}" data-title="{{ $media_progress->title }}" data-id="{{ $media_progress->id }}" data-progress="{{ $media_progress->userMediaProgress->progress ?? 0 }}" data-views="{{ $media_progress->views }}"><span class="bi bi-play" style="font-size:25px;"></span>
                         </a>
                     </div>
                     <div class="text pt-3 w-100 text-center">
-                        <h3><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">{{ $media_item->title }}</a></h3>
-                        <div style="text-align:justify">
-                            @foreach ($media_item->categories as $category)
-                                <a href="{{ url('/' . strtolower($category->name)) }}" style="text-decoration:none; font-weight:500; font-size:15px; color: #B3B2B3;" class="d-inline">{{ $category->name }}</a>
-                            @endforeach
-                        </div>
-                        @php
-                            $progress = $media_item->userMediaProgress->progress ?? 0;
-                            $duration = $media_item->duration;
-
-                            if ($progress > 0) {
-                                $progress = ($progress / $duration) * 100;
-                            }
-                        @endphp
+                        <h3><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">{{ $media_progress->title }}</a></h3>
 
                         <div class="progress" style="height: 5px; margin-top: 10px;">
                             <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%" aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"></div>

@@ -8,10 +8,10 @@
             <h4>VAZHDONI SHIKIMIN</h4>
         </div>
         <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-3">
-            @foreach ($media_progress as $media_progress)
+            @foreach ($media_progress as $mp)
             @php
-                $progress = $media_progress->progress ?? 0;
-                $duration = $media_progress->mediaItem->duration;
+                $progress = $mp->progress ?? 0;
+                $duration = $mp->mediaItem->duration;
 
                 if ($progress > 0) {
                     $progress = ($progress / $duration) * 100;
@@ -21,14 +21,14 @@
             @if($progress !== 100)
                 <div class="col item">
                     <div class="work work_all">
-                        <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $media_progress->mediaItem->uuid, 'filename' => $media_progress->mediaItem->image]) }});">
-                            <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $media_progress->mediaItem->uuid, 'filename' => $media_progress->mediaItem->path]) }}" data-title="{{ $media_progress->mediaItem->title }}" data-id="{{ $media_progress->mediaItem->id }}" data-progress="{{ $media_progress->mediaItem->userMediaProgress->progress ?? 0 }}" data-views="{{ $media_progress->mediaItem->views }}"><span class="bi bi-play" style="font-size:25px;"></span>
+                        <div class="img d-flex align-items-center justify-content-center rounded" style="background-image: url({{ route('file.show', ['id' => $mp->mediaItem->uuid, 'filename' => $mp->mediaItem->image]) }});">
+                            <a href="#" class="icon d-flex align-items-center justify-content-center play_video" data-bs-toggle="modal" data-bs-target="#videoModal" data-url="{{ route('file.show', ['id' => $mp->mediaItem->uuid, 'filename' => $mp->mediaItem->path]) }}" data-title="{{ $mp->mediaItem->title }}" data-id="{{ $mp->mediaItem->id }}" data-progress="{{ $mp->mediaItem->userMediaProgress->progress ?? 0 }}" data-views="{{ $mp->mediaItem->views }}"><span class="bi bi-play" style="font-size:25px;"></span>
                             </a>
                         </div>
                         <div class="text pt-3 w-100 text-center">
-                            <h3><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">{{ $media_progress->mediaItem->title }}</a></h3>
+                            <h3><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">{{ $mp->mediaItem->title }}</a></h3>
                             <div style="text-align:justify">
-                                @foreach ($media_progress->mediaItem->categories as $category)
+                                @foreach ($mp->mediaItem->categories as $category)
                                     <a href="{{ url('/' . strtolower($category->name)) }}" style="text-decoration:none; font-weight:500; font-size:15px; color: #B3B2B3;" class="d-inline">{{ $category->name }}</a>
                                 @endforeach
                             </div>
@@ -64,7 +64,7 @@
                 <button type="button" class="btn btn-outline-secondary">
                     <i class="bi bi-eye"></i> <span id="views"></span>
                 </button>
-                
+
                 <a href="#" class="btn btn-outline-primary downloadMedia"><i class="bi bi-cloud-download"></i> Download</a>
                 <button type="button" class="btn btn-outline-danger" id="modalCloseButton"
                     data-bs-dismiss="modal"><i class="bi bi-x"></i> Close</button>

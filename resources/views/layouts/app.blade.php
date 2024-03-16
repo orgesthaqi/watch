@@ -49,8 +49,8 @@
             @else
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 ms-lg-2 justify-content-center mb-md-0">
                 <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Filma</a></li>
-                {{-- <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Seriale</a></li>
-                <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Favoritët</a></li> --}}
+                <li><a href="{{ route('series.index') }}" class="nav-link px-2 text-secondary">Seriale</a></li>
+                {{-- <li><a href="{{ route('home') }}" class="nav-link px-2 text-secondary">Favoritët</a></li> --}}
                 <li><a href="{{ route('continue-watching') }}" class="nav-link px-2 text-secondary">Vazhdoni Shikimin</a></li>
             </ul>
 

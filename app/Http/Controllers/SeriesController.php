@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\MediaItem;
 use App\Models\Series;
 
 class SeriesController extends Controller
 {
     public function index()
     {
-        return Series::all();
+        $series = MediaItem::orderBy('created_at', 'desc')
+                    ->where('type', 2)
+                    ->get();
+
+        return view('series.index', compact('series'));
     }
 
     public function create()

@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
 
         // create serie
+        Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
         Route::get('/series/create', [SeriesController::class, 'create'])->name('series.create');
         Route::post('/series', [SeriesController::class, 'store'])->name('series.store');
 
