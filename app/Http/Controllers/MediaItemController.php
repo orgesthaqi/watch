@@ -14,9 +14,9 @@ class MediaItemController extends Controller
 {
     public function index()
     {
-        $media_items = MediaItem::orderBy('created_at', 'DESC')->paginate(25);
+        $mediaItems = MediaItem::orderBy('created_at', 'DESC')->paginate(25);
 
-        return view('media_items.index', compact('media_items'));
+        return view('admin.media_items.index', compact('mediaItems'));
     }
 
     public function create()

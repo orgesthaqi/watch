@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\MediaProgressController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +29,10 @@ Auth::routes(['register' => false]);
 Route::middleware(['auth'])->group(function () {
 
     // Route accessible only to admins
-    Route::middleware(['role:admin'])->group(function () {
+    Route::prefix('admin')->middleware(['role:admin'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+        Route::get('/catalog', [DashboardController::class, 'catalog'])->name('admin.catalog');
 
         Route::get('/media-items/{id}/edit', [MediaItemController::class, 'edit'])->name('media_items.edit');
         Route::delete('/media-items/{id}', [MediaItemController::class, 'destroy'])->name('media_items.destroy');
@@ -47,8 +51,8 @@ Route::middleware(['auth'])->group(function () {
         // Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'revokeRole'])->name('permissions.roles.revoke');
     });
 
-    Route::middleware(['role:admin|manager'])->group(function () {
-        Route::get('/media-items', [MediaItemController::class, 'index'])->name('media_items.index');
+    Route::prefix('admin')->middleware(['role:admin|manager'])->group(function () {
+        Route::get('/media-items', [MediaItemController::class, 'index'])->name('admin.media_items.index');
         Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
 
         // create serie
