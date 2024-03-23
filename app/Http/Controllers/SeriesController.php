@@ -21,6 +21,11 @@ class SeriesController extends Controller
         return view('admin.series.index', compact('series'));
     }
 
+    public function edit(Series $series)
+    {
+        return view('admin.series.edit', compact('series'));
+    }
+
     public function create()
     {
         return view('admin.series.create');
@@ -45,12 +50,14 @@ class SeriesController extends Controller
     public function update(Request $request, Series $series)
     {
         $series->update($request->all());
-        return $series;
+
+        return redirect()->route('series.index');
     }
 
     public function destroy(Series $series)
     {
         $series->delete();
-        return response()->json(['message' => 'Deleted']);
+
+        return redirect()->route('series.index');
     }
 }

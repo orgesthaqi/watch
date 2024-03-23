@@ -45,7 +45,7 @@
                                     <td>{{ $serie->seasons }}</td>
                                     <td>{{ $serie->created_at }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('series.edit', $serie->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="#" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?');">

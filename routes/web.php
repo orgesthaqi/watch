@@ -54,10 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/media-items', [MediaItemController::class, 'index'])->name('media_items.index');
         Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
 
-        // create serie
-        Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
-        Route::get('/series/create', [SeriesController::class, 'create'])->name('series.create');
-        Route::post('/series', [SeriesController::class, 'store'])->name('series.store');
+        Route::resource('series', SeriesController::class);
 
         Route::post('/media-items', [MediaItemController::class, 'store'])->name('media_items.store');
         Route::post('/media-items-upload', [MediaItemController::class, 'uploadMedia'])->name('media_items.files.upload');
@@ -74,8 +71,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');
         Route::get('/media/{id}/download', [MediaItemController::class, 'download'])->name('media.download');
 
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-        Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/user/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::post('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
 
         // Media progress
         Route::post('/media-progress', [MediaProgressController::class, 'save'])->name('media.progress');

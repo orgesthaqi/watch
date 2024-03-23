@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Edit user</h1>
+                <h1 class="m-0">Update user</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="card card-default" bis_skin_checked="1">
             <div class="card-header" bis_skin_checked="1">
-                <h3 class="card-title">Create</h3>
+                <h3 class="card-title">Update</h3>
             </div>
 
             <div class="card-body">
