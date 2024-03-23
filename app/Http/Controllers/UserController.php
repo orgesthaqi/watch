@@ -19,14 +19,14 @@ class UserController extends Controller
     {
         $roles = Role::all();
 
-        return view('users.create', compact('roles'));
+        return view('admin.users.create', compact('roles'));
     }
 
     public function edit(User $user)
     {
         $roles = Role::all();
 
-        return view('users.edit', compact('user', 'roles'));
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     public function store(Request $request)

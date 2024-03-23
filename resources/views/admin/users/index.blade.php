@@ -7,7 +7,10 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Users</h1>
-            </div><!-- /.col -->
+            </div>
+            <div class="col-sm-6" bis_skin_checked="1">
+                <a href="{{ route('users.create') }}" class="btn btn-outline-dark float-right">Create</a>
+            </div>
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
@@ -47,7 +50,20 @@
                                     <td>0</td>
                                     <td>Approved</td>
                                     <td>{{ $user->created_at }}</td>
-                                    <td>-</td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin-left: 10px;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
