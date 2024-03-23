@@ -30,15 +30,14 @@ Route::middleware(['auth'])->group(function () {
 
     // Route accessible only to admins
     Route::prefix('admin')->middleware(['role:admin'])->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-        Route::get('/catalog', [DashboardController::class, 'catalog'])->name('admin.catalog');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/media-items/{id}/edit', [MediaItemController::class, 'edit'])->name('media_items.edit');
         Route::delete('/media-items/{id}', [MediaItemController::class, 'destroy'])->name('media_items.destroy');
         Route::post('/media-items/update/featured', [MediaItemController::class, 'updateFeatured'])->name('media_items.featured');
 
         Route::resource('users', UserController::class);
+        //Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
         Route::delete('/users/{user}/roles/{role}', [UserController::class, 'revokeRole'])->name('users.roles.revoke');
 
@@ -52,7 +51,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('admin')->middleware(['role:admin|manager'])->group(function () {
-        Route::get('/media-items', [MediaItemController::class, 'index'])->name('admin.media_items.index');
+        Route::get('/media-items', [MediaItemController::class, 'index'])->name('media_items.index');
         Route::get('/media-items/create', [MediaItemController::class, 'create'])->name('media_items.create');
 
         // create serie

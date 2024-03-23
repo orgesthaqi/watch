@@ -27,7 +27,7 @@ class SeriesController extends Controller
         $series = Series::create($request->all());
 
         if($request->from_media_item_form) {
-            return redirect()->route('media_items.create');
+            return redirect()->route('admin.media_items.create');
         }
 
         return redirect()->route('series.index');

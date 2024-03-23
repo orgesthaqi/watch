@@ -6,11 +6,8 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Media Items</h1>
-            </div>
-            <div class="col-sm-6" bis_skin_checked="1">
-                <a href="{{ route('media_items.create') }}" class="btn btn-outline-dark float-right">Add New</a>
-            </div>
+                <h1 class="m-0">Users</h1>
+            </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
@@ -29,26 +26,28 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Title</th>
-                                    <th>Rating</th>
-                                    <th>Category</th>
-                                    <th>Views</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Plan</th>
+                                    <th>Comments</th>
+                                    <th>Reviews</th>
                                     <th>Status</th>
                                     <th>Created Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($mediaItems as $item)
+                                @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->type == 1 ? 'Movie' : 'Serie' }}</td>
-                                    <td>9.2</td>
-                                    <td>9.2</td>
-                                    <td>9.2</td>
-                                    <td>9.2</td>
-                                    <td>9.2</td>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>Subscription</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>Approved</td>
+                                    <td>{{ $user->created_at }}</td>
+                                    <td>-</td>
                                 </tr>
                                 @endforeach
                             </tbody>

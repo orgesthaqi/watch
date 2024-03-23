@@ -24,7 +24,7 @@ class MediaItemController extends Controller
         $categories = Category::all();
         $series = Series::all();
 
-        return view('media_items.create' , compact('categories', 'series'));
+        return view('admin.media_items.create' , compact('categories', 'series'));
     }
 
     public function edit($id)
@@ -64,7 +64,7 @@ class MediaItemController extends Controller
 
         $mediaItem->categories()->attach($request->categories);
 
-        return redirect()->route('media_items.index');
+        return redirect()->route('admin.media_items.index');
     }
 
     public function uploadMedia(Request $request) {
