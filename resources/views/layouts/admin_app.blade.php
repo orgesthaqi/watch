@@ -98,6 +98,22 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('categories.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Categories
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('series.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-tv"></i>
+                                <p>
+                                    Series
+                                </p>
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-comment"></i>
