@@ -62,15 +62,8 @@
                 </a>
                 <ul class="dropdown-menu text-small">
                     @hasanyrole('admin|manager')
-                    <li><a class="dropdown-item" href="{{ route('media_items.index') }}">Manage Media</a></li>
-                    <li><a class="dropdown-item" href="{{ route('categories.index') }}">Manage Categories</a></li>
+                    <li><a class="dropdown-item" href="{{ route('dashboard') }}">Admin Panel</a></li>
                     @endhasanyrole
-
-                    @role('admin')
-                    <li><a class="dropdown-item" href="{{ route('users.index') }}">Manage Users</a></li>
-                    <li><a class="dropdown-item" href="{{ route('roles.index') }}">Manage Roles</a></li>
-                    {{-- <li><a class="dropdown-item" href="{{ route('permissions.index') }}">Permissions</a></li> --}}
-                    @endrole
                     <li><a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a></li>
                     <li>
                         <hr class="dropdown-divider">

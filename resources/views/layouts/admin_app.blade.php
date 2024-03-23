@@ -84,17 +84,9 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('media_items.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-th-large"></i>
+                                <i class="nav-icon fas fa-film"></i>
                                 <p>
                                     Media Items
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Users
                                 </p>
                             </a>
                         </li>
@@ -111,6 +103,30 @@
                                 <i class="nav-icon fas fa-tv"></i>
                                 <p>
                                     Series
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Users
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('roles.index') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-tag"></i>
+                                <p>
+                                    Roles
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('home') }}" class="nav-link">
+                                <i class="nav-icon fas fa-arrow-left"></i>
+                                <p>
+                                    Back to the main site
                                 </p>
                             </a>
                         </li>
@@ -143,11 +159,8 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            <strong>Copyright &copy; {{ date('Y') }} <a href="{{ route('dashboard') }}">Watch</a>.</strong>
             All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0
-            </div>
         </footer>
 
         <!-- Control Sidebar -->
