@@ -75,7 +75,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link">
+                            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Dashboard
@@ -83,7 +83,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('media_items.index') }}" class="nav-link">
+                            <a href="{{ route('media_items.index') }}" class="nav-link {{ request()->routeIs('media_items.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-film"></i>
                                 <p>
                                     Media Items
@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('categories.index') }}" class="nav-link">
+                            <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Categories
@@ -99,7 +99,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('series.index') }}" class="nav-link">
+                            <a href="{{ route('series.index') }}" class="nav-link {{ request()->routeIs('series.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-tv"></i>
                                 <p>
                                     Series
@@ -107,7 +107,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('users.index') }}" class="nav-link">
+                            <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Users
@@ -115,7 +115,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('roles.index') }}" class="nav-link">
+                            <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user-tag"></i>
                                 <p>
                                     Roles

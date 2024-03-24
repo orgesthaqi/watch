@@ -43,7 +43,7 @@
                         <h3><a href="#" data-bs-toggle="modal" data-bs-target="#videoModal">{{ $media_item->title }}</a></h3>
                         <div style="text-align:justify">
                             @foreach ($media_item->categories as $category)
-                                <a href="{{ url('/' . strtolower($category->name)) }}" style="text-decoration:none; font-weight:500; font-size:15px; color: #B3B2B3;" class="d-inline">{{ $category->name }}</a>
+                                <a href="{{ url('/movie/' . strtolower($category->name)) }}" style="text-decoration:none; font-weight:500; font-size:15px; color: #B3B2B3;" class="d-inline">{{ $category->name }}</a>
                             @endforeach
                         </div>
                         @php

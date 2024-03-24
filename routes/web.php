@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/media-items/update/featured', [MediaItemController::class, 'updateFeatured'])->name('media_items.featured');
 
         Route::resource('users', UserController::class);
-        //Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
         Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
         Route::delete('/users/{user}/roles/{role}', [UserController::class, 'revokeRole'])->name('users.roles.revoke');
 
@@ -65,7 +65,8 @@ Route::middleware(['auth'])->group(function () {
     // Route accessible to both admins and users
     Route::middleware(['role:admin|manager|user'])->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
-        Route::get('/{slug}', [HomeController::class, 'category'])->name('category');
+        Route::get('/series', [HomeController::class, 'series'])->name('home.series');
+        Route::get('/movie/{slug}', [HomeController::class, 'movieCategory'])->name('movie.category');
         Route::get('/media/continue-watching', [HomeController::class, 'continueWatching'])->name('continue-watching');
         Route::post('/media/update-views', [MediaItemController::class, 'updateViews'])->name('media.update-views');
         Route::get('/file/{id}/{filename}', [MediaItemController::class, 'show'])->name('file.show');

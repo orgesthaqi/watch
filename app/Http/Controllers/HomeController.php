@@ -23,7 +23,7 @@ class HomeController extends Controller
         return view('home', compact('featured_media_items','media_items'));
     }
 
-    public function category(Request $request, $slug)
+    public function movieCategory(Request $request, $slug)
     {
         if($slug && !Category::where('name', $slug)->exists()) {
             return redirect()->route('home');
@@ -45,6 +45,15 @@ class HomeController extends Controller
         ->get();
 
         return view('home', compact('featured_media_items','media_items'));
+    }
+
+    public function series(Request $request)
+    {
+        $series = MediaItem::orderBy('created_at', 'desc')
+                    ->where('type', 2)
+                    ->get();
+
+        return view('series', compact('series'));
     }
 
     public function continueWatching(Request $request)

@@ -10,12 +10,6 @@ class SeriesController extends Controller
 {
     public function index()
     {
-        // $series = MediaItem::orderBy('created_at', 'desc')
-        //             ->where('type', 2)
-        //             ->get();
-
-        // return view('series.index', compact('series'));
-
         $series = Series::orderBy('created_at', 'desc')->get();
 
         return view('admin.series.index', compact('series'));

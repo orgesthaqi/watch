@@ -32,6 +32,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Plan</th>
+                                    <th>Role</th>
                                     <th>Comments</th>
                                     <th>Reviews</th>
                                     <th>Status</th>
@@ -46,6 +47,15 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>Subscription</td>
+                                    <td>
+                                        @if($user->hasRole('admin'))
+                                            Admin
+                                        @elseif($user->hasRole('manager'))
+                                            Manager
+                                        @else
+                                            User
+                                        @endif
+                                    </td>
                                     <td>0</td>
                                     <td>0</td>
                                     <td>Approved</td>
